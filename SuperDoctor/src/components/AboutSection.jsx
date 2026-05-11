@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-// Keep the global static animations for hover states and subtle floating
+// Keep global static animations for hover states, floating, and active press popping
 const unifiedAnimationStyles = `
   @keyframes spideyFloat {
     0% { transform: translateY(0px) rotate(0deg); }
@@ -11,6 +11,17 @@ const unifiedAnimationStyles = `
 
   .animate-spidey-float {
     animation: spideyFloat 8s ease-in-out infinite;
+  }
+
+  @keyframes popEffect {
+    0% { transform: scale(1); }
+    40% { transform: scale(0.92); }
+    70% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+  }
+
+  .animate-pop {
+    animation: popEffect 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
   }
 `;
 
@@ -31,6 +42,9 @@ export default function AboutSection() {
   
   const [quoteScale, setQuoteScale] = useState(0.8);
   const [quoteOpacity, setQuoteOpacity] = useState(0.4);
+
+  // State to manage button clicking / pop animation trigger
+  const [isPopping, setIsPopping] = useState(false);
 
   const features = [
     {
@@ -164,6 +178,17 @@ export default function AboutSection() {
     };
   }, [groupedFeatures]); // Recalculate if grouping rows changes on screen resize
 
+  const handleButtonClick = (e) => {
+    e.preventDefault();
+    setIsPopping(true);
+    
+    // Smoothly redirect after the visual "pop" animation finishes playing
+    setTimeout(() => {
+      setIsPopping(false);
+      window.location.href = "/portal";
+    }, 450);
+  };
+
   return (
     <section 
       ref={containerRef}
@@ -196,7 +221,7 @@ export default function AboutSection() {
         </div>
 
         {/* Feature Grid with Row wrapper groups */}
-        <div className="flex flex-col gap-7 w-full relative">
+        <div className="flex flex-col gap-7 w-full relative mb-16">
           {groupedFeatures.map((rowItems, rowIndex) => {
             const rowState = rowScales[rowIndex] || { scale: 0.85, opacity: 0.5 };
             
@@ -253,10 +278,10 @@ export default function AboutSection() {
           })}
         </div>
 
-        {/* Bottom Blockquote */}
+        {/* Bottom Blockquote & CTA Button */}
         <div 
           ref={quoteRef}
-          className="mt-28 text-center transition-all duration-300 ease-out origin-center"
+          className="mt-20 text-center transition-all duration-300 ease-out origin-center flex flex-col items-center"
           style={{
             transform: `scale(${quoteScale})`,
             opacity: quoteOpacity
@@ -265,9 +290,41 @@ export default function AboutSection() {
           <blockquote className="text-xl md:text-4xl font-black italic text-[#e21b1b] uppercase tracking-wider drop-shadow-[0_2.5px_0px_#2b59c3]">
             "With Great Power, Comes Great Medical Responsibility."
           </blockquote>
-          <p className="text-xs text-slate-500 mt-3 tracking-widest uppercase font-bold opacity-70">
+          <p className="text-xs text-slate-500 mt-3 tracking-widest uppercase font-bold opacity-70 mb-12">
             Join the network today. Secure your local health web.
           </p>
+
+          {/* Interactive 3D Red Button with active press pop effect */}
+          <div className="relative group">
+            {/* The 3D Depth Shadow Base */}
+            <div className="absolute inset-0 translate-y-2 rounded-xl bg-[#931111] transition-all duration-200 group-hover:translate-y-2.5"></div>
+            
+            <button
+              onClick={handleButtonClick}
+              className={`relative z-10 block px-10 py-5 font-black text-white uppercase tracking-wider rounded-xl bg-[#e21b1b] border-2 border-[#b01414] select-none cursor-pointer transition-all duration-150 ease-out
+                -translate-y-1 hover:-translate-y-2 active:translate-y-1
+                [text-shadow:0_1.5px_0px_rgba(0,0,0,0.4)]
+                shadow-[0_4px_12px_rgba(226,27,27,0.3)]
+                hover:shadow-[0_8px_20px_rgba(226,27,27,0.5)]
+                ${isPopping ? 'animate-pop' : ''}
+              `}
+            >
+              <span className="flex items-center gap-3">
+                <span className="text-sm md:text-base font-black tracking-[0.1em]">
+                  Enter Healthcare Portal
+                </span>
+                <svg 
+                  className="w-5 h-5 text-white transition-transform duration-300 transform group-hover:translate-x-1.5" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2.5" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
 
       </div>

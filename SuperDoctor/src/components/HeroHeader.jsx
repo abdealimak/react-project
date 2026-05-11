@@ -39,7 +39,7 @@ export default function HeroHeader() {
     }
   }, []);
 
-  const textPhrase = "YOUR FRIENDLY NEIGHBOURHOOD SUPERDOC • ";
+  const textPhrase = "YOUR FRIENDLY NEIGHBOURHOOD SUPERDOC +";
 
   return (
     <div className="w-full bg-[#050911] py-3 border-b border-slate-800/80 overflow-hidden select-none flex flex-col gap-1.5 relative z-30">
