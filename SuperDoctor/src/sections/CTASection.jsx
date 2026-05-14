@@ -35,7 +35,7 @@ export default function CTASection() {
         
         
 
-        <blockquote className="text-3xl md:text-6xl font-black italic text-[#e21b1b] uppercase tracking-wider drop-shadow-[0_3.5px_0px_#2b59c3] px-4 max-w-5xl leading-none z-10">
+        <blockquote className="text-3xl md:text-5xl font-black italic text-[#e21b1b] uppercase tracking-wider drop-shadow-[0_3.5px_0px_#2b59c3] px-4 max-w-5xl leading-none z-10">
           "With Great Power, Comes Great Medical Responsibility."
         </blockquote>
         
