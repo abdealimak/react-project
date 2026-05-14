@@ -3,6 +3,9 @@ import React from 'react';
 export default function Navbar() {
   const scrollToSection = (e, id) => {
     e.preventDefault();
+    // For the "portal" link, we target the CTA section. 
+    // Usually, the CTA section doesn't have an ID in your code, 
+    // so ensure your CTASection.jsx <section> has id="cta".
     const element = document.getElementById(id);
     if (element) {
       window.scrollTo({
@@ -13,11 +16,11 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="flex items-center justify-between px-8 py-4 bg-[#050911]/95 backdrop-blur-md border-b border-slate-800/80 shrink-0 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
+    <nav className="relative flex items-center justify-between px-8 py-4 bg-[#050911]/95 backdrop-blur-md border-b border-slate-800/80 shrink-0 shadow-[0_4px_30px_rgba(0,0,0,0.5)] z-50">
       
       {/* LEFT: BRAND LOGO */}
       <div 
-        className="flex flex-col items-start cursor-pointer" 
+        className="flex flex-col items-start cursor-pointer relative z-10" 
         onClick={(e) => scrollToSection(e, 'home')}
       >
         <div className="flex items-center space-x-3">
@@ -40,21 +43,31 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* CENTER: BRAND QUOTE */}
-      <div className="hidden lg:block">
-        <span className="text-[10px] md:text-xs font-bold text-slate-500 italic tracking-[0.2em] uppercase opacity-70">
-          "Your Friendly Neighbourhood SuperDoc"
-        </span>
+
+      <div>
+        {/* SWINGING SPIDEY STICKER */}
+        <img 
+          src="https://media.giphy.com/media/0Awb0MITzU2efaxrS2/giphy.gif" 
+          alt="Spider-Man Swinging" 
+          className="absolute top-0 left-1/2 -translate-x-1/2 h-16 md:h-20 drop-shadow-[0_10px_15px_rgba(43,89,195,0.4)] pointer-events-none select-none"
+        />
       </div>
       
       {/* RIGHT: NAVIGATION */}
-      <div className="flex items-center space-x-8 text-xs font-semibold text-slate-300">
+      <div className="flex items-center space-x-6 md:space-x-8 text-xs font-semibold text-slate-300 relative z-10">
         <a href="#features" onClick={(e) => scrollToSection(e, 'features')} className="hover:text-[#e21b1b] transition-all duration-200 tracking-wider uppercase">Features</a>
         <a href="#reviews" onClick={(e) => scrollToSection(e, 'reviews')} className="hover:text-[#2b59c3] transition-all duration-200 tracking-wider uppercase">Reviews</a>
-        <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="hover:text-[#e21b1b] transition-all duration-200 tracking-wider uppercase">FAQ</a>
-        <a href="#portal" onClick={(e) => scrollToSection(e, 'portal')} className="hover:text-[#2b59c3] transition-all duration-200 tracking-wider uppercase">Portal</a>
+        <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="hover:text-[#e21b1b] transition-all duration-200 tracking-wider uppercase">Support</a>
+        
+        {/* PORTAL LINK REDIRECTING TO CTA */}
+        <a 
+          href="#cta" 
+          onClick={(e) => scrollToSection(e, 'cta')} 
+          className="px-4 py-1.5 border border-[#e21b1b] text-[#e21b1b] rounded-full hover:bg-[#e21b1b] hover:text-white transition-all duration-300 tracking-wider uppercase"
+        >
+          Portal
+        </a>
       </div>
-      
     </nav>
   );
 }

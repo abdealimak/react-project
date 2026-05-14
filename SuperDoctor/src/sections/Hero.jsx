@@ -47,7 +47,7 @@ export default function SuperDoctorPage() {
         <Navbar />
       </div>
 
-      <div className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[#050911]">
+      <div id="home" className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-[#050911]">
         <div 
           className="w-full h-full transition-all duration-75 ease-out origin-center z-10"
           style={{ transform: `scale(${1 - scrollProgress * 0.25})`, opacity: 1 - scrollProgress * 0.2, borderRadius: `${scrollProgress * 24}px`, overflow: 'hidden' }}
@@ -56,7 +56,7 @@ export default function SuperDoctorPage() {
         </div>
       </div>
 
-      <div id="home" className="relative z-20"><HeroHeader /></div>
+      <div  className="relative z-20"><HeroHeader /></div>
       <div id="features" className="relative z-20 bg-[#050911]"><AboutSection /></div>
       <div id="reviews" className="relative z-20 bg-[#050911] border-t border-slate-800/50"><Testimonials /></div>
       {/* Section Divider */}
@@ -74,7 +74,7 @@ export default function SuperDoctorPage() {
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#e21b1b] blur-[2px] opacity-50"></div>
   </div>
 </div>
-      <div id="portal" className="relative z-20 bg-[#050911]"><CTASection /></div>
+      <div id="cta" className="relative z-20 bg-[#050911]"><CTASection /></div>
       <Footer />
     </div>
   );
