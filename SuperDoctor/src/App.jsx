@@ -76,6 +76,17 @@ const healthTips = [
   { id: 12, title: "Mental Resilience Protocols", category: "Psychiatry", excerpt: "Clinical strategies for managing anxiety and high-pressure environments.", img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80", url: "https://www.apa.org/topics/resilience" },
 ];
 
+const trainingVideos = [
+  { id: 1, title: "Full Body Morning Yoga Flow", category: "Flexibility", duration: "20 min", ytId: "v7AYKMP6rOE", img: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=400&q=80" },
+  { id: 2, title: "HIIT Cardio Blast", category: "Cardio", duration: "30 min", ytId: "ml6cT4AZdqI", img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=400&q=80" },
+  { id: 3, title: "Core Strength Builder", category: "Strength", duration: "25 min", ytId: "DHD1-2P4jck", img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=400&q=80" },
+  { id: 4, title: "Mindful Meditation & Breathing", category: "Mindfulness", duration: "15 min", ytId: "inpok4MKVLM", img: "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=400&q=80" },
+  { id: 5, title: "Posture & Spine Correction", category: "Physiotherapy", duration: "18 min", ytId: "RqcOCBb4arc", img: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=400&q=80" },
+  { id: 6, title: "Immunity Booster Workout", category: "Wellness", duration: "22 min", ytId: "UItWltVZglo", img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=400&q=80" },
+  { id: 7, title: "Senior Friendly Mobility", category: "Elderly Care", duration: "20 min", ytId: "Cb7fNOCOsUo", img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=400&q=80" },
+  { id: 8, title: "Sleep Prep & Wind Down", category: "Recovery", duration: "12 min", ytId: "aEqlQvczMJQ", img: "https://images.unsplash.com/photo-1511293853672-438fa521529a?auto=format&fit=crop&w=400&q=80" },
+];
+
 const motivationalQuotes = [
   "Health is wealth.",
   "Your body is your temple.",
@@ -189,29 +200,27 @@ const Logo = ({ size = "8" }) => (
 );
 
 const QuoteMarquee = () => {
-  // ULTRA-DENSE quote stream - no gaps
-  const duplicatedQuotes = [...motivationalQuotes, ...motivationalQuotes, ...motivationalQuotes, ...motivationalQuotes, ...motivationalQuotes, ...motivationalQuotes, ...motivationalQuotes, ...motivationalQuotes];
+  // Two copies for seamless loop: animate from -50% → 0% (left to right)
+  const set = [...motivationalQuotes, ...motivationalQuotes, ...motivationalQuotes, ...motivationalQuotes];
+  const allQuotes = [...set, ...set]; // duplicate for seamless wrap
   return (
-    <div className="overflow-hidden whitespace-nowrap bg-white/5 border-y border-white/5 py-4 relative">
+    <div className="overflow-hidden whitespace-nowrap bg-white/5 border-y border-white/5 py-5 relative">
        <motion.div 
-         className="inline-flex gap-4 items-center"
+         className="inline-flex items-center gap-0"
          animate={{ x: ["-50%", "0%"] }}
-         transition={{ 
-           repeat: Infinity, 
-           duration: 40, 
-           ease: "linear"
-         }}
+         transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
          style={{ width: 'max-content' }}
        >
-          {duplicatedQuotes.map((q, i) => (
-            <div key={i} className="flex items-center gap-2 px-1">
-               <Quote size={10} className="text-[#e21b1b] shrink-0" />
-               <span className="text-[10px] font-black font-syne italic text-white tracking-tight uppercase">{q}</span>
+          {allQuotes.map((q, i) => (
+            <div key={i} className="inline-flex items-center gap-3 px-6">
+               <Quote size={12} className="text-[#e21b1b] shrink-0 opacity-80" />
+               <span className="text-xs font-black font-syne italic text-white/90 tracking-widest uppercase">{q}</span>
+               <span className="text-[#e21b1b]/30 text-base font-black mx-2">·</span>
             </div>
           ))}
        </motion.div>
-       <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-slate-900 to-transparent z-10" />
-       <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-slate-900 to-transparent z-10" />
+       <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[#050911] to-transparent z-10 pointer-events-none" />
+       <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[#050911] to-transparent z-10 pointer-events-none" />
     </div>
   );
 };
@@ -650,39 +659,45 @@ const HomeVisitView = () => {
                     </button>
                   ))}
                </div>
-               <div className="col-span-12 lg:col-span-8 bg-slate-900/60 rounded-[64px] border border-white/5 relative overflow-hidden h-[600px] shadow-2xl">
-                  {/* HIGH-DETAIL CITY STREET GRID */}
-                  <div className="absolute inset-0 bg-[#0a0f18]">
-                     <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000">
-                        <defs>
-                           <pattern id="street-pattern" width="100" height="100" patternUnits="userSpaceOnUse">
-                              <rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="2"/>
-                              <circle cx="50" cy="50" r="1.5" fill="white" opacity="0.1" />
-                           </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#street-pattern)" />
-                        {/* Urban Blocks/Buildings */}
-                        <rect x="150" y="150" width="100" height="100" fill="rgba(255,255,255,0.03)" rx="8" />
-                        <rect x="350" y="150" width="100" height="100" fill="rgba(255,255,255,0.03)" rx="8" />
-                        <rect x="550" y="150" width="100" height="100" fill="rgba(255,255,255,0.03)" rx="8" />
-                        <rect x="750" y="150" width="100" height="100" fill="rgba(255,255,255,0.03)" rx="8" />
-                        
-                        <rect x="150" y="350" width="100" height="100" fill="rgba(255,255,255,0.03)" rx="8" />
-                        <rect x="350" y="350" width="100" height="100" fill="rgba(255,255,255,0.03)" rx="8" />
-                        <rect x="550" y="350" width="100" height="100" fill="rgba(255,255,255,0.03)" rx="8" />
-                        <rect x="750" y="350" width="100" height="100" fill="rgba(255,255,255,0.03)" rx="8" />
-
-                        {/* Street Label Simulations */}
-                        <text x="20" y="90" fill="rgba(255,255,255,0.1)" fontSize="10" fontWeight="900" fontStyle="italic">LEXINGTON AVE</text>
-                        <text x="20" y="290" fill="rgba(255,255,255,0.1)" fontSize="10" fontWeight="900" fontStyle="italic">BROADWAY</text>
-                     </svg>
-                     <img src="https://images.unsplash.com/photo-1541339907198-e08759df9923?auto=format&fit=crop&w=1200&q=80" className="absolute inset-0 w-full h-full object-cover opacity-10 grayscale brightness-200 contrast-150 mix-blend-screen" />
+               <div className="col-span-12 lg:col-span-8 rounded-[64px] border border-white/10 relative overflow-hidden h-[600px] shadow-2xl">
+                  {/* REAL OPENSTREETMAP EMBED — Mumbai, Bandra area */}
+                  <iframe
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=72.8100,19.0400,72.8700,19.0800&layer=mapnik"
+                    title="Live Street Map — Mumbai"
+                    className="absolute inset-0 w-full h-full"
+                    style={{ border: 'none' }}
+                  />
+                  {/* HUD overlay — top-left status badge */}
+                  <div className="absolute top-4 left-4 z-20 pointer-events-none">
+                     <div className="flex items-center gap-2 px-4 py-2.5 bg-[#050911]/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl">
+                        <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                        <span className="text-[10px] font-black text-white uppercase tracking-widest font-jakarta">Live Doctor Locations · Mumbai</span>
+                     </div>
                   </div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                     <div className="p-8 bg-slate-900/95 backdrop-blur-3xl border border-white/10 rounded-[40px] text-center max-w-sm shadow-2xl">
-                        <MapPin size={40} className="text-[#e21b1b] mx-auto mb-4" />
-                        <h3 className="text-xl font-black italic font-syne text-white uppercase mb-2">Street View Active</h3>
-                        <p className="text-xs text-white/40 font-jakarta">Showing detailed local city grid for emergency clinical dispatch.</p>
+                  {/* Animated doctor position pins */}
+                  <div className="absolute inset-0 z-10 pointer-events-none">
+                     {medicalExperts.map((doc, i) => (
+                        <motion.div
+                           key={doc.id}
+                           className="absolute flex flex-col items-center"
+                           style={{ left: `${15 + i * 20}%`, top: `${20 + (i % 2) * 28}%` }}
+                           animate={{ y: [-4, 4, -4] }}
+                           transition={{ duration: 2.5 + i * 0.4, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                           <div className={`w-11 h-11 rounded-full overflow-hidden border-[3px] shadow-2xl ${selectedDoc?.id === doc.id ? 'border-[#e21b1b] shadow-[#e21b1b]/60' : 'border-white/80 shadow-black/40'}`}>
+                              <img src={doc.img} alt={doc.name} className="w-full h-full object-cover" />
+                           </div>
+                           <div className="mt-1.5 px-2.5 py-1 bg-[#050911]/95 backdrop-blur-xl border border-white/10 rounded-lg shadow-xl">
+                              <span className="text-[8px] font-black text-white uppercase tracking-widest whitespace-nowrap">{doc.dist}</span>
+                           </div>
+                           <div className="w-px h-3 bg-white/30" />
+                        </motion.div>
+                     ))}
+                  </div>
+                  {/* Bottom-right instruction badge */}
+                  <div className="absolute bottom-4 right-4 z-20 pointer-events-none">
+                     <div className="px-4 py-2.5 bg-[#050911]/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl">
+                        <span className="text-[9px] font-black text-white/50 uppercase tracking-widest font-jakarta">Click a doctor card to book a home visit</span>
                      </div>
                   </div>
                </div>
@@ -709,79 +724,144 @@ const HomeVisitView = () => {
             </motion.div>
           ) : (
             <motion.div key="track" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid grid-cols-12 gap-8 h-full relative">
-               <div className="col-span-12 lg:col-span-8 bg-slate-900/60 rounded-[64px] border border-white/5 h-[600px] relative overflow-hidden shadow-2xl p-4">
-                  {/* ZOOMED URBAN STREET DISPATCH MAP */}
-                  <div className="absolute inset-0 bg-[#060a10]">
-                     <svg className="absolute inset-0 w-full h-full" viewBox="0 0 1000 1000">
-                        <defs>
-                           <pattern id="zoom-grid" width="100" height="100" patternUnits="userSpaceOnUse">
-                              <rect width="100" height="100" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5"/>
-                           </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#zoom-grid)" />
-                        {/* City Corridors */}
-                        <path d="M0,100 L1000,100 M0,300 L1000,300 M0,500 L1000,500 M0,700 L1000,700" stroke="rgba(255,255,255,0.08)" strokeWidth="30" fill="none" />
-                        <path d="M100,0 L100,1000 M400,0 L400,1000 M700,0 L700,1000" stroke="rgba(255,255,255,0.08)" strokeWidth="30" fill="none" />
-                        {/* ACTUAL DISPATCH ROUTE */}
-                        <path d="M100,100 L400,100 L400,500 L700,500 L700,800" stroke="#e21b1b" strokeWidth="6" strokeDasharray="15,15" fill="none" className="drop-shadow-[0_0_20px_rgba(226,27,27,1)]" />
-                        <text x="120" y="90" fill="rgba(255,255,255,0.2)" fontSize="12" fontWeight="900" fontStyle="italic">DISPATCH CENTER</text>
-                        <text x="720" y="790" fill="rgba(255,255,255,0.2)" fontSize="12" fontWeight="900" fontStyle="italic">PATIENT HUB</text>
-                     </svg>
-                     <img src="https://images.unsplash.com/photo-1494522358652-f30e61a60313?auto=format&fit=crop&w=1200&q=80" className="absolute inset-0 w-full h-full object-cover opacity-5 grayscale brightness-200 mix-blend-screen" />
-                  </div>
+               <div className="col-span-12 lg:col-span-8 rounded-[64px] border border-white/10 h-[600px] relative overflow-hidden shadow-2xl">
+                  {/* REAL OPENSTREETMAP — zoomed in for tracking */}
+                  <iframe
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=72.8200,19.0450,72.8600,19.0750&layer=mapnik"
+                    title="Live Dispatch Tracking Map"
+                    className="absolute inset-0 w-full h-full"
+                    style={{ border: 'none' }}
+                  />
                   
+                  {/* Animated doctor/truck marker */}
                   <motion.div className="absolute z-20 flex flex-col items-center" animate={{ left: `${position.x}%`, top: `${position.y}%` }} transition={{ duration: 0.1, ease: "linear" }}>
-                     <div className="bg-[#e21b1b] p-3 rounded-2xl shadow-[0_0_60px_rgba(226,27,27,1)] relative border-2 border-white/20">
-                        <Truck size={32} className="text-white" />
-                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full border-2 border-[#e21b1b] animate-ping" />
+                     <div className="bg-[#e21b1b] p-3 rounded-2xl shadow-[0_0_40px_rgba(226,27,27,0.9)] relative border-2 border-white/20">
+                        <Truck size={28} className="text-white" />
+                        <div className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-white rounded-full border-2 border-[#e21b1b] animate-ping" />
                      </div>
-                     <div className="mt-3 px-4 py-2 bg-slate-900 border border-white/10 rounded-xl backdrop-blur-xl shadow-2xl"><p className="text-[10px] font-black text-white uppercase tracking-widest">{selectedDoc?.name}</p></div>
+                     <div className="mt-2 px-3 py-1.5 bg-[#050911]/95 border border-white/10 rounded-xl backdrop-blur-xl shadow-xl"><p className="text-[9px] font-black text-white uppercase tracking-widest">{selectedDoc?.name}</p></div>
                   </motion.div>
 
+                  {/* Destination marker */}
                   <div className="absolute left-[80%] top-[80%] z-10 flex flex-col items-center">
-                     <div className="bg-blue-600 p-5 rounded-3xl shadow-[0_0_80px_rgba(37,99,235,1)] border-2 border-white/20"><Home size={32} className="text-white" /></div>
-                     <div className="mt-4 px-5 py-2.5 bg-slate-900 border border-white/10 rounded-2xl backdrop-blur-xl shadow-2xl"><p className="text-[11px] font-black text-white uppercase tracking-widest">RESIDENCE</p></div>
+                     <div className="bg-blue-600 p-4 rounded-2xl shadow-[0_0_40px_rgba(37,99,235,0.8)] border-2 border-white/20"><Home size={24} className="text-white" /></div>
+                     <div className="mt-2 px-4 py-1.5 bg-[#050911]/95 border border-white/10 rounded-xl backdrop-blur-xl shadow-xl"><p className="text-[9px] font-black text-white uppercase tracking-widest">YOUR LOCATION</p></div>
                   </div>
 
-                  <div className="absolute top-10 left-10 p-8 bg-slate-900/95 backdrop-blur-3xl border border-white/10 rounded-[48px] max-w-[320px] z-30 shadow-2xl">
-                     <div className="flex items-center gap-3 mb-4"><div className="w-2.5 h-2.5 bg-[#e21b1b] rounded-full animate-ping" /><p className="text-[11px] font-black text-[#e21b1b] uppercase tracking-widest">Active Urban Dispatch</p></div>
-                     <h3 className="text-2xl font-black italic font-syne text-white mb-3 leading-tight">Live Route Tracking</h3>
-                     <p className="text-xs text-white/40 font-jakarta mb-6">Clinical specialist is currently navigating primary urban corridors to reach your location at priority speed.</p>
-                     <div className="flex items-center gap-2 text-white/60"><Clock size={16} /><span className="text-[12px] font-black tracking-widest uppercase text-white">{isArrived ? 'STATUS: REACHED' : 'EST: 02m 45s'}</span></div>
+                  {/* ETA info card */}
+                  <div className="absolute top-4 left-4 p-6 bg-[#050911]/95 backdrop-blur-3xl border border-white/10 rounded-[32px] max-w-[280px] z-30 shadow-2xl">
+                     <div className="flex items-center gap-3 mb-3"><div className="w-2 h-2 bg-[#e21b1b] rounded-full animate-ping" /><p className="text-[10px] font-black text-[#e21b1b] uppercase tracking-widest">Active Dispatch</p></div>
+                     <h3 className="text-xl font-black italic font-syne text-white mb-2 leading-tight">Live Route Tracking</h3>
+                     <p className="text-[10px] text-white/40 font-jakarta mb-4">Specialist navigating real-time streets toward your location.</p>
+                     <div className="flex items-center gap-2"><Clock size={14} className="text-white/40" /><span className="text-xs font-black tracking-widest uppercase text-white">{isArrived ? 'STATUS: REACHED' : 'ETA: 02m 45s'}</span></div>
                   </div>
 
                   <AnimatePresence>
                      {isArrived && (
-                        <motion.div initial={{ opacity: 0, scale: 1.2 }} animate={{ opacity: 1, scale: 1 }} className="absolute inset-0 z-[2000] flex items-center justify-center bg-[#050911]/98 backdrop-blur-3xl p-10">
-                           <motion.div initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="bg-[#e21b1b] p-24 rounded-[80px] text-center shadow-[0_0_250px_rgba(226,27,27,1)] border-8 border-white/20 max-w-2xl relative overflow-hidden">
-                              <div className="absolute top-0 left-0 w-full h-4 bg-white/20 animate-pulse" />
-                              <div className="w-48 h-48 bg-white rounded-full flex items-center justify-center mx-auto mb-14 shadow-[0_0_60px_rgba(255,255,255,0.4)] animate-bounce">
-                                 <Check size={100} className="text-[#e21b1b]" strokeWidth={6} />
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="absolute inset-0 z-[2000] flex items-center justify-center bg-[#050911]/95 backdrop-blur-3xl p-8">
+                           <motion.div initial={{ y: 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }} className="w-full max-w-lg">
+                              {/* Top icon */}
+                              <div className="flex justify-center mb-8">
+                                 <div className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center shadow-[0_0_60px_rgba(34,197,94,0.5)]">
+                                    <Check size={48} className="text-white" strokeWidth={3} />
+                                 </div>
                               </div>
-                              <h2 className="text-8xl font-black italic font-syne text-white uppercase tracking-tighter mb-8 leading-none">DOCTOR REACHED</h2>
-                              <p className="text-3xl text-white font-jakarta font-black mb-16 leading-relaxed uppercase tracking-[0.2em]">SPECIALIST HAS REACHED YOUR LOCATION. OPEN MAIN ENTRANCE NOW.</p>
-                              <button onClick={() => { setView('neighborhood'); setIsArrived(false); setPosition({x:5, y:5}); }} className="w-full py-10 bg-white text-[#e21b1b] rounded-full text-2xl font-black uppercase tracking-[0.3em] shadow-2xl hover:bg-slate-100 transition-all active:scale-95">ACKNOWLEDGE ARRIVAL</button>
+                              {/* Title */}
+                              <div className="text-center mb-8">
+                                 <p className="text-[10px] font-black text-green-400 uppercase tracking-[0.3em] mb-3">Visit Status · Confirmed</p>
+                                 <h2 className="text-5xl font-black italic font-syne text-white uppercase tracking-tighter leading-none mb-4">Doctor Arrived</h2>
+                                 <p className="text-sm text-white/50 font-jakarta leading-relaxed">Your specialist is at the door. Please proceed to the main entrance to receive them.</p>
+                              </div>
+                              {/* Doctor card */}
+                              <div className="bg-white/5 border border-white/10 rounded-[32px] p-6 flex items-center gap-5 mb-6">
+                                 <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-green-500/40 shadow-lg shrink-0">
+                                    <img src={selectedDoc?.img} className="w-full h-full object-cover" alt={selectedDoc?.name} />
+                                 </div>
+                                 <div className="flex-1">
+                                    <h4 className="text-lg font-black italic font-syne text-white leading-none mb-1">{selectedDoc?.name}</h4>
+                                    <p className="text-[9px] font-black text-[#e21b1b] uppercase tracking-widest">{selectedDoc?.specialty}</p>
+                                 </div>
+                                 <div className="text-right">
+                                    <div className="flex items-center gap-2 bg-green-500/10 border border-green-500/20 px-3 py-1.5 rounded-full">
+                                       <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" />
+                                       <span className="text-[9px] font-black text-green-400 uppercase tracking-widest">On-site</span>
+                                    </div>
+                                 </div>
+                              </div>
+                              {/* Info row */}
+                              <div className="grid grid-cols-3 gap-3 mb-6">
+                                 <div className="bg-white/5 border border-white/5 rounded-2xl p-4 text-center">
+                                    <p className="text-[8px] font-black text-white/30 uppercase tracking-widest mb-1">Arrived At</p>
+                                    <p className="text-sm font-black italic font-syne text-white">{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                 </div>
+                                 <div className="bg-white/5 border border-white/5 rounded-2xl p-4 text-center">
+                                    <p className="text-[8px] font-black text-white/30 uppercase tracking-widest mb-1">Distance</p>
+                                    <p className="text-sm font-black italic font-syne text-white">0.0 km</p>
+                                 </div>
+                                 <div className="bg-white/5 border border-white/5 rounded-2xl p-4 text-center">
+                                    <p className="text-[8px] font-black text-white/30 uppercase tracking-widest mb-1">Session</p>
+                                    <p className="text-sm font-black italic font-syne text-white">45 min</p>
+                                 </div>
+                              </div>
+                              {/* CTA */}
+                              <button onClick={() => { setView('neighborhood'); setIsArrived(false); setPosition({x:5, y:5}); }} className="w-full py-5 bg-white text-[#050911] rounded-full text-xs font-black uppercase tracking-[0.2em] shadow-2xl hover:bg-slate-100 transition-all active:scale-95">
+                                 Acknowledge & Begin Session
+                              </button>
                            </motion.div>
                         </motion.div>
                      )}
                   </AnimatePresence>
                </div>
-               <div className="col-span-12 lg:col-span-4 space-y-6">
-                  <SimpleCard title="Clinical Hub" icon={ShieldCheck}>
-                     <div className="flex items-center gap-6 mb-6">
-                        <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/10 shadow-xl"><img src={selectedDoc?.img} className="w-full h-full object-cover" /></div>
-                        <div><h3 className="text-xl font-bold font-syne italic text-white leading-none mb-1">{selectedDoc?.name}</h3><p className="text-[9px] font-black text-[#e21b1b] uppercase tracking-widest">{selectedDoc?.specialty}</p></div>
+               <div className="col-span-12 lg:col-span-4 space-y-4">
+                  <SimpleCard title="Assigned Specialist" icon={ShieldCheck}>
+                     <div className="flex items-center gap-5 mb-6">
+                        <div className="relative shrink-0">
+                           <div className="w-16 h-16 rounded-2xl overflow-hidden border border-white/10 shadow-xl"><img src={selectedDoc?.img} className="w-full h-full object-cover" /></div>
+                           <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-slate-900" />
+                        </div>
+                        <div>
+                           <h3 className="text-lg font-bold font-syne italic text-white leading-none mb-1">{selectedDoc?.name}</h3>
+                           <p className="text-[9px] font-black text-[#e21b1b] uppercase tracking-widest mb-1">{selectedDoc?.specialty}</p>
+                           <p className="text-[9px] font-black text-white/30 uppercase tracking-widest">{selectedDoc?.clinic}</p>
+                        </div>
                      </div>
-                     <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:bg-white/10 transition-all cursor-pointer">
+                     <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex items-center justify-between hover:bg-white/10 transition-all cursor-pointer mb-3">
                         <div className="flex items-center gap-3"><Phone size={14} className="text-white/40" /><span className="text-xs font-bold text-white font-jakarta">+1 234 567 890</span></div>
                         <button className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-white shadow-lg shadow-blue-500/20"><Send size={14} /></button>
                      </div>
+                     <div className="p-4 bg-white/5 rounded-2xl border border-white/5 flex items-center gap-3">
+                        <div className="flex items-center gap-1 text-yellow-400">{[...Array(5)].map((_,i) => <Star key={i} size={10} fill="currentColor" />)}</div>
+                        <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">{selectedDoc?.rating} · {selectedDoc?.reviews} reviews</span>
+                     </div>
                   </SimpleCard>
-                  <div className="p-10 bg-slate-900/60 border-4 border-[#e21b1b] rounded-[48px] shadow-2xl relative overflow-hidden group">
-                     <div className="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-20 transition-all"><Siren size={150} className="text-[#e21b1b]" /></div>
-                     <div className="relative z-10">
-                        <p className="text-[12px] font-black text-[#e21b1b] uppercase tracking-[0.4em] mb-8">URGENT PATIENT ALERT</p>
-                        <p className="text-lg text-white font-jakarta font-black leading-snug uppercase tracking-wide">Specialist arrival is IMMINENT. Ensure all clinical identifiers are ready and clear the path to the primary residence HUB immediately.</p>
+
+                  {/* Visit Details card */}
+                  <div className="bg-slate-900/60 border border-white/5 rounded-[32px] p-6 space-y-4">
+                     <p className="text-[9px] font-black text-white/30 uppercase tracking-widest">Visit Details</p>
+                     <div className="space-y-3">
+                        <div className="flex items-center justify-between p-3 bg-white/5 rounded-2xl">
+                           <div className="flex items-center gap-3"><Clock size={13} className="text-white/30" /><span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">ETA</span></div>
+                           <span className="text-xs font-black italic font-syne text-white">{isArrived ? 'Arrived' : '2 min 45 sec'}</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-white/5 rounded-2xl">
+                           <div className="flex items-center gap-3"><MapPin size={13} className="text-white/30" /><span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Distance</span></div>
+                           <span className="text-xs font-black italic font-syne text-white">{selectedDoc?.dist}</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-white/5 rounded-2xl">
+                           <div className="flex items-center gap-3"><Activity size={13} className="text-white/30" /><span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Session</span></div>
+                           <span className="text-xs font-black italic font-syne text-white">45 min</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-white/5 rounded-2xl">
+                           <div className="flex items-center gap-3"><DollarSign size={13} className="text-white/30" /><span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Fee</span></div>
+                           <span className="text-xs font-black italic font-syne text-[#e21b1b]">${selectedDoc?.price}</span>
+                        </div>
+                        <div className="flex items-center justify-between p-3 bg-white/5 rounded-2xl">
+                           <div className="flex items-center gap-3"><ShieldCheck size={13} className="text-white/30" /><span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">Status</span></div>
+                           <div className="flex items-center gap-1.5">
+                              <div className={`w-1.5 h-1.5 rounded-full ${isArrived ? 'bg-green-500' : 'bg-yellow-400 animate-pulse'}`} />
+                              <span className={`text-[9px] font-black uppercase tracking-widest ${isArrived ? 'text-green-400' : 'text-yellow-400'}`}>{isArrived ? 'On-site' : 'En Route'}</span>
+                           </div>
+                        </div>
                      </div>
                   </div>
                </div>
