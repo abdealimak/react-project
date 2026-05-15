@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const scrollToSection = (e, id) => {
     e.preventDefault();
     // For the "portal" link, we target the CTA section. 
@@ -60,13 +62,12 @@ export default function Navbar() {
         <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')} className="hover:text-[#e21b1b] transition-all duration-200 tracking-wider uppercase">Support</a>
         
         {/* PORTAL LINK REDIRECTING TO CTA */}
-        <a 
-          href="#cta" 
-          onClick={(e) => scrollToSection(e, 'cta')} 
+        <button 
+          onClick={() => navigate('/dashboard')} 
           className="px-4 py-1.5 border border-[#e21b1b] text-[#e21b1b] rounded-full hover:bg-[#e21b1b] hover:text-white transition-all duration-300 tracking-wider uppercase"
         >
           Portal
-        </a>
+        </button>
       </div>
     </nav>
   );

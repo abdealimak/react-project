@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function CTASection() {
+  const navigate = useNavigate();
   const quoteRef = useRef(null);
   const [quoteScale, setQuoteScale] = useState(0.8);
   const [quoteOpacity, setQuoteOpacity] = useState(0.4);
@@ -50,7 +52,10 @@ export default function CTASection() {
           <button
             onClick={() => { 
               setIsPopping(true); 
-              setTimeout(() => setIsPopping(false), 450); 
+              setTimeout(() => {
+                setIsPopping(false);
+                navigate('/dashboard');
+              }, 450); 
             }}
             className={`relative z-10 block px-8 py-3.5 font-black text-white uppercase tracking-wider rounded-lg bg-[#e21b1b] border-2 border-[#b01414] select-none cursor-pointer transition-all duration-150 ease-out -translate-y-1 hover:-translate-y-1.5 active:translate-y-1 shadow-[0_4px_10px_rgba(226,27,27,0.25)] ${isPopping ? 'animate-pop' : ''}`}
           >
